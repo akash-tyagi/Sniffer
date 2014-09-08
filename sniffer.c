@@ -219,13 +219,13 @@ int main(int argc, char **argv)
     list_ftp_client = list_ftp_server = NULL;
     list_telnet_client = list_telnet_server = NULL;
 
-	//if(argc < 2 ) {
-	  //  fprintf(stderr, "Please specify a pcap file for sniffing\n");
-		//exit(EXIT_FAILURE);
-//	}
+	if(argc < 2 ) {
+	    fprintf(stderr, "Please specify a pcap file for sniffing\n");
+		exit(EXIT_FAILURE);
+	}
 	
 	/* open file for sniffing*/
-	handle = pcap_open_offline("httpsession.pcap", errbuf);
+	handle = pcap_open_offline(argv[1], errbuf);
 	if (handle == NULL) {
 		fprintf(stderr, "Couldn't open pcap file %s: %s\n", argv[1], errbuf);
 		exit(EXIT_FAILURE);
@@ -257,7 +257,7 @@ int main(int argc, char **argv)
     list_print(&list_telnet_client,&list_telnet_server, telnetFile);
     list_print(&list_ftp_client, &list_ftp_server, ftpFile);
     
-	printf("\nCapture complete.\n");
+	printf("\n******Capture complete.... Ouput in httpData.txt, ftpData.txt and telnetData.txt files******** \n");
     
     closeFiles();
     list_delete(&list_http_client);
